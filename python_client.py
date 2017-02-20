@@ -3,22 +3,13 @@ import socket
 SEND_BUFFER_SIZE = 1
 
 def client(server_ip, server_port):
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    except Exception as e:
-        print 'Couldnt create socket'
-    try:
-        s.connect((server_ip, server_port))
-    except Exception as e:
-        print 'Couldnt connect to socket'
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((server_ip, server_port))
     while True:
         message = sys.stdin.read(SEND_BUFFER_SIZE)
         if not message:
             break
-        try:
-            s.sendall(message)
-        except Exception as e:
-            print 'Couldnt send to socket'
+        s.sendall(message)
     s.close()
     pass
 
