@@ -5,25 +5,13 @@ RECV_BUFFER_SIZE = 2048
 QUEUE_LENGTH = 10
 
 def server(server_port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(('', server_port))
+    s.listen(QUEUE_LENGTH)
     while True:
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        except Exception as e:
-            print 'Couldnt create socket'
-        try:
-            s.bind(('', server_port))
-        except Exception as e:
-            print 'Couldnt bind socket'
-        try:
-            s.listen(QUEUE_LENGTH)
-        except Exception as e:
-            print 'Couldnt listen socket'
         conn, addr = s.accept()
         while True:
-            try:
-                data = conn.recv(RECV_BUFFER_SIZE)
-            except Exception as e:
-                print 'Couldnt read from socket'
+            data = conn.recv(RECV_BUFFER_SIZE)
             if not data: break
             sys.stdout.write(data)
         conn.close()
