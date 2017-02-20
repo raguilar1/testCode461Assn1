@@ -10,6 +10,7 @@ def server(server_port):
         try:
             s.bind(('', server_port))
         except Exception as e:
+            
         s.listen(QUEUE_LENGTH)
         conn, addr = s.accept()
         while True:
