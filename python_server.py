@@ -7,8 +7,8 @@ QUEUE_LENGTH = 10
 def server(server_port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('', server_port))
-    s.listen(QUEUE_LENGTH)
     while True:
+        s.listen(QUEUE_LENGTH)
         conn, addr = s.accept()
         while True:
             data = conn.recv(RECV_BUFFER_SIZE)
