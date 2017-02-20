@@ -30,7 +30,7 @@ int client(char *server_ip, char *server_port) {
 	hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
 
 	// get ready to connect
-	status = getaddrinfo(*server_ip, *server_port, &hints, &servinfo);
+	status = getaddrinfo(&server_ip, &server_port, &hints, &servinfo);
 	//Block 1
 	//Block 2, get the socket, editted from 5.2
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
