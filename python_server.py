@@ -26,7 +26,7 @@ def server(server_port):
                 print 'Couldnt read from socket'
             if not data: break
             sys.stdout.write(data)
-    conn.close()
+        conn.close()
     pass
 
 
