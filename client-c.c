@@ -41,7 +41,7 @@ int client(char *server_ip, char *server_port) {
 	while(1){
 		c = getchar( );
 		if(c == -1) break;
-		send(s, void *buf, c, len, 0)
+		send(s, void *buf, c, len, 0);
 	}
 	  
 }
