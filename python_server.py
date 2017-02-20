@@ -7,7 +7,9 @@ QUEUE_LENGTH = 10
 def server(server_port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     while True:
-        s.bind(('', server_port))
+        try:
+            s.bind(('', server_port))
+        except Exception as e:
         s.listen(QUEUE_LENGTH)
         conn, addr = s.accept()
         while True:
