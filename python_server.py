@@ -17,7 +17,7 @@ def server(server_port):
             data = conn.recv(RECV_BUFFER_SIZE)
             if not data: break
             sys.stdout.write(data)
-        conn.close()
+    conn.close()    
     pass
 
 
