@@ -48,7 +48,7 @@ int server(char *server_port) {
 			success = recv(new_fd, &buf, RECV_BUFFER_SIZE, 0);
 			fprintf(stderr, "%d", success);
 			if(success >= 0){
-				printf("HI");
+				printf(buf);
 			}
 			else{
 				break;
