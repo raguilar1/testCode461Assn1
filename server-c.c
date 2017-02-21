@@ -28,18 +28,21 @@ int server(char *server_port) {
 	struct addrinfo hints;
 	struct addrinfo *servinfo;  // will point to the results
 	int success;
-
+	printf("1");
 	memset(&hints, 0, sizeof hints); // make sure the struct is empty
 	hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;	// TCP stream sockets
-
+	printf("2");
 	// get ready to connect
 	status = getaddrinfo(NULL, server_port, &hints, &servinfo);
 	//Block 1
 	//Block 2, get the socket, editted from 5.2
+	printf("3");
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	printf("4");
 	listen(s, QUEUE_LENGTH);
+	printf("5");
 	while(1){
 		printf("Hi");
 		addr_size = sizeof their_addr;
