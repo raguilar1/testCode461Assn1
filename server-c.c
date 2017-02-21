@@ -21,7 +21,7 @@ int server(char *server_port) {
     int status;
 	int s;
 	int new_fd;
-	char *buf
+	char *buf;
 	struct sockaddr_storage their_addr;
 	socklen_t addr_size;
 	int len, bytes_sent;
