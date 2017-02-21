@@ -21,13 +21,13 @@ int server(char *server_port) {
     int status;
 	int s;
 	int new_fd;
-	char *buf;
+	char buf[RECV_BUFFER_SIZE];
 	struct sockaddr_storage their_addr;
 	socklen_t addr_size;
 	int len, bytes_sent;
 	struct addrinfo hints;
 	struct addrinfo *servinfo;  // will point to the results
-	int success;
+	int bytes;
 	memset(&hints, 0, sizeof hints); // make sure the struct is empty
 	hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
 	hints.ai_socktype = SOCK_STREAM;
@@ -44,10 +44,10 @@ int server(char *server_port) {
 		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
 		success = 1;
 		while(1){
-			fprintf(stderr, "YO");
-			success = recv(new_fd, &buf, RECV_BUFFER_SIZE, 0);
+			bytes = recv(new_fd, buf, RECV_BUFFER_SIZE, 0);
 			fprintf(stderr, "%d", success);
-			if(success >= 0){
+			if(bytes >= 0){
+				buf[numbytes] = '\0'
 				printf(buf);
 			}
 			else{
