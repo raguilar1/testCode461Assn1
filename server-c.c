@@ -18,6 +18,7 @@
  * Return 0 on success, non-zero on failure
 */
 int server(char *server_port) {
+	//code bellow edited from http://beej.us/guide/bgnet/output/html/singlepage/bgnet.htm ch 5 and 6
     int status;
 	int s;
 	int new_fd;
@@ -30,28 +31,29 @@ int server(char *server_port) {
 	struct addrinfo hints;
 	struct addrinfo *servinfo;  // will point to the results
 	int bytes;
-	memset(&hints, 0, sizeof hints); // make sure the struct is empty
-	hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_UNSPEC; 
 	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;	// TCP stream sockets
+	hints.ai_flags = AI_PASSIVE;
 	// get ready to connect
 	status = getaddrinfo(NULL, server_port, &hints, &servinfo);
 	if(status != 0){
 		fprintf(stderr, "getaddrinfo failed");
 		return 1;
 	}	
-	//Block 1
-	//Block 2, get the socket, editted from 5.2
+	//connect to socket
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 	if(s == -1){
 		fprintf(stderr, "socket failed");
 		return 2;
-	}	
+	}
+	//bind 
 	bin = bind(s, servinfo->ai_addr, servinfo->ai_addrlen);
 	if(bin == -1){
 		fprintf(stderr, "bind failed");
 		return 3;
-	}	
+	}
+	//listen
 	listn = listen(s, QUEUE_LENGTH);
 	if(listn == -1){
 		fprintf(stderr, "listen failed");
