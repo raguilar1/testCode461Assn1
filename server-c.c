@@ -46,7 +46,7 @@ int server(char *server_port) {
 		while(1){
 			success = recv(new_fd, buf, RECV_BUFFER_SIZE, 0);
 			if(success >= 0){
-				printf(buf);
+				printf("yolo");
 			}
 			else{
 				break;
