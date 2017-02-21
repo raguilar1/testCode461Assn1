@@ -42,7 +42,6 @@ int server(char *server_port) {
 	while(1){
 		addr_size = sizeof their_addr;
 		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
-		success = 1;
 		while(1){
 			bytes = recv(new_fd, buf, RECV_BUFFER_SIZE, 0);
 			if(bytes >= 0){
