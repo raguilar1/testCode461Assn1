@@ -52,8 +52,6 @@ int server(char *server_port) {
 				break;
 			}
 			printf(buf);
-			printf(&buf);
-			printf(*buf);
 		}
 	}
 	
