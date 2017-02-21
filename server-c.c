@@ -45,9 +45,8 @@ int server(char *server_port) {
 		success = 1;
 		while(1){
 			bytes = recv(new_fd, buf, RECV_BUFFER_SIZE, 0);
-			fprintf(stderr, "%d", success);
 			if(bytes >= 0){
-				buf[numbytes] = '\0'
+				buf[bytes] = '\0';
 				printf(buf);
 			}
 			else{
