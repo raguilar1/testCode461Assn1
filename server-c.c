@@ -37,6 +37,7 @@ int server(char *server_port) {
 	//Block 1
 	//Block 2, get the socket, editted from 5.2
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	bind(s, servinfo->ai_addr, servinfo->ai_addrlen);
 	listen(s, QUEUE_LENGTH);
 	while(1){
 		addr_size = sizeof their_addr;
@@ -46,7 +47,7 @@ int server(char *server_port) {
 			fprintf(stderr, "YO");
 			success = recv(new_fd, &buf, RECV_BUFFER_SIZE, 0);
 			if(success >= 0){
-				printf(buf);
+				printf("HI");
 			}
 			else{
 				break;
