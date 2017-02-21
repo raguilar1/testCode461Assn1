@@ -44,10 +44,9 @@ int server(char *server_port) {
 		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
 		success = 1;
 		while(1){
-			fprintf(stderr, "YO");
 			success = recv(new_fd, &buf, RECV_BUFFER_SIZE, 0);
 			if(success >= 0){
-				printf("HI");
+				printf(buf);
 			}
 			else{
 				break;
