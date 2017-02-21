@@ -18,7 +18,42 @@
  * Return 0 on success, non-zero on failure
 */
 int server(char *server_port) {
-    return 0;
+    int status;
+	int s;
+	char *buf
+	struct sockaddr_storage their_addr;
+	socklen_t addr_size;
+	int len, bytes_sent;
+	struct addrinfo hints;
+	struct addrinfo *servinfo;  // will point to the results
+	int success;
+
+	memset(&hints, 0, sizeof hints); // make sure the struct is empty
+	hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE;	// TCP stream sockets
+
+	// get ready to connect
+	status = getaddrinfo(NULL, server_port, &hints, &servinfo);
+	//Block 1
+	//Block 2, get the socket, editted from 5.2
+	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	listen(s, QUEUE_LENGTH);
+	
+	while(1){
+		addr_size = sizeof their_addr;
+		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
+		success = 1;
+		while(1){
+			success = recv(new_fd, buf, RECV_BUFFER_SIZE, 0)
+			if(success == -1 || success == 0){
+				break;
+			}
+			printf(buf);
+		}
+	}
+	
+	
 }
 
 /*

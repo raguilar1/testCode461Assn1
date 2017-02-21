@@ -35,7 +35,7 @@ int client(char *server_ip, char *server_port) {
 	//Block 2, get the socket, editted from 5.2
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 	//Block 2
-	//Block 3, edited frmo 5.4
+	//Block 3, edited from 5.4
 	connect(s, servinfo->ai_addr, servinfo->ai_addrlen);
 	//Block 3
 	while(1){
