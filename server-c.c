@@ -39,18 +39,19 @@ int server(char *server_port) {
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 	listen(s, QUEUE_LENGTH);
 	while(1){
-		fprintf(stderr, "HI");
 		addr_size = sizeof their_addr;
 		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
-		fprintf(stderr, new_fd);
 		success = 1;
 		while(1){
 			fprintf(stderr, "YO");
 			success = recv(new_fd, &buf, RECV_BUFFER_SIZE, 0);
-			if(success == -1 || success == 0){
-				break;
+			if(success >= 0){
+				printf(buf);
 			}
-			printf(buf);
+			else{
+				break;
+				}
+			
 		}
 	}
 	
