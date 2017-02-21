@@ -21,6 +21,8 @@ int server(char *server_port) {
     int status;
 	int s;
 	int new_fd;
+	int bin;
+	int listn;
 	char buf[RECV_BUFFER_SIZE];
 	struct sockaddr_storage their_addr;
 	socklen_t addr_size;
@@ -34,11 +36,27 @@ int server(char *server_port) {
 	hints.ai_flags = AI_PASSIVE;	// TCP stream sockets
 	// get ready to connect
 	status = getaddrinfo(NULL, server_port, &hints, &servinfo);
+	if(status != 0){
+		fprintf(stderr, "getaddrinfo failed");
+		return 1;
+	}	
 	//Block 1
 	//Block 2, get the socket, editted from 5.2
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
-	bind(s, servinfo->ai_addr, servinfo->ai_addrlen);
-	listen(s, QUEUE_LENGTH);
+	if(s == -1){
+		fprintf(stderr, "socket failed");
+		return 2;
+	}	
+	bin = bind(s, servinfo->ai_addr, servinfo->ai_addrlen);
+	if(bin == -1){
+		fprintf(stderr, "bind failed");
+		return 3;
+	}	
+	listn = listen(s, QUEUE_LENGTH);
+	if(listn == -1){
+		fprintf(stderr, "listen failed");
+		return 4;
+	}	
 	while(1){
 		addr_size = sizeof their_addr;
 		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
@@ -53,7 +71,9 @@ int server(char *server_port) {
 				}
 			
 		}
+		close(new_fd);
 	}
+	close(s);
 	
 	
 }

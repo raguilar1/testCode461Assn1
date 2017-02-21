@@ -22,6 +22,7 @@ int client(char *server_ip, char *server_port) {
 	int s;
 	int c;
 	int len, bytes_sent;
+	int con;
 	struct addrinfo hints;
 	struct addrinfo *servinfo;  // will point to the results
 
@@ -31,18 +32,31 @@ int client(char *server_ip, char *server_port) {
 
 	// get ready to connect
 	status = getaddrinfo(server_ip, server_port, &hints, &servinfo);
+	if(status != 0){
+		fprintf(stderr, "getaddrinfo failed");
+		return 1;
+	}
 	//Block 1
 	//Block 2, get the socket, editted from 5.2
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	if(s == -1){
+		fprintf(stderr, "socket failed");
+		return 2;
+	}
 	//Block 2
 	//Block 3, edited from 5.4
-	connect(s, servinfo->ai_addr, servinfo->ai_addrlen);
+	con = connect(s, servinfo->ai_addr, servinfo->ai_addrlen);
+	if(con == -1){
+		fprintf(stderr, "connect failed");
+		return 3;
+	}
 	//Block 3
 	while(1){
 		c = getchar( );
 		if(c == -1) break;
 		send(s, &c, 1, 0);
 	}
+	close(s);
 	  
 }
 
