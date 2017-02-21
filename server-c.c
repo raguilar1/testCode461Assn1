@@ -40,8 +40,8 @@ int server(char *server_port) {
 	//Block 2, get the socket, editted from 5.2
 	s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 	listen(s, QUEUE_LENGTH);
-	
 	while(1){
+		printf("Hi");
 		addr_size = sizeof their_addr;
 		new_fd = accept(s, (struct sockaddr *)&their_addr, &addr_size);
 		success = 1;
